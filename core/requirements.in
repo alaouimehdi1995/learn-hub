@@ -2,6 +2,7 @@ asgiref==3.2.7
 click==7.1.1
 Django==3.0
 pip-tools==4.5.1
+psycopg2==2.8.4
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
