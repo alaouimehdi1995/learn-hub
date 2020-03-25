@@ -1,0 +1,62 @@
+version: "3.4"
+
+# The postgres credential shared between web server and database services.
+x-db-credentials: &db-credentials
+    POSTGRES_USER: ${POSTGRES_USER:-learnhub}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-learnhub}
+    POSTGRES_DB: ${POSTGRES_DB:-learnhub}
+
+networks:
+    app-network:
+        driver: bridge
+
+# TODO: Add env variables to separate test and production environments
+services:
+    postgresql_db:
+        image: postgres:12.2
+        container_name: "learn-hub-web-db"
+        environment:
+            <<: *db-credentials
+        networks:
+            - app-network
+
+    web-server:
+        build:
+            context: ./core/
+            dockerfile: Dockerfile
+        image: learn-hub-web-server
+        container_name: "learn-hub-web-server"
+        command: ./docker-entrypoint.sh
+        restart: always
+        user: ${UID}:${GID}
+        depends_on:
+            - postgresql_db
+        ports:
+            - "8000:8000"
+        networks:
+            - app-network
+        volumes:
+            - ./core/:/usr/src/app/
+        environment:
+            <<: *db-credentials
+            POSTGRES_HOST: 'postgresql_db'
+
+    ui:
+        build:
+            context: ./ui/
+            dockerfile: Dockerfile
+        command: npm run start
+        image: learn-hub-ui
+        container_name: "learn-hub-ui"
+        restart: always
+        user: ${UID}:${GID}
+        stdin_open: true
+        tty: true
+        ports:
+            - "3000:3000"
+        networks:
+            - app-network
+        volumes:
+            - ./ui:/usr/src/app
+        environment:
+            - PORT=3000
