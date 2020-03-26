@@ -6,7 +6,8 @@
 #
 asgiref==3.2.7            # via -r requirements.in, django
 click==7.1.1              # via -r requirements.in, pip-tools
-django==3.0               # via -r requirements.in
+django==3.0.4             # via -r requirements.in, djangorestframework
+djangorestframework==3.11.0  # via -r requirements.in
 pip-tools==4.5.1          # via -r requirements.in
 psycopg2==2.8.4           # via -r requirements.in
 pytz==2019.3              # via -r requirements.in, django
