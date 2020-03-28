@@ -1,5 +1,8 @@
 # learn-hub project
 
+[![Build Status](https://travis-ci.org/alaouimehdi1995/learn-hub.png?branch=master)](https://travis-ci.org/alaouimehdi1995/learn-hub)
+[![codecov](https://codecov.io/gh/alaouimehdi1995/learn-hub/branch/master/graph/badge.svg)](https://codecov.io/gh/alaouimehdi1995/learn-hub)
+
 ## 1. How to install ?
 
 ### 1.1 Project requirements
@@ -17,35 +20,35 @@ That's it! Enjoy.
 
 ### 1.3 Useful adresses
 
--  React app address: `http://localhost:3000/`
--  Django app address: `http://localhost:8000/`
+-   React app address: `http://localhost:3000/`
+-   Django app address: `http://localhost:8000/`
 
 ## 2. Project onboarding
 
 ### 2.1 Useful commands
 
--  `docker-compose up` to run (and build if not already built) the project
--  `docker-compose up -d` Same as the previous, but the app is run in the background (no showing logs)
--  `docker-compose exec [service_name] [command]` to execute a custom command inside on of the existing services: `postgresql_db`(database), `web-server`(django app), `ui`(react app)
+-   `docker-compose up` to run (and build if not already built) the project
+-   `docker-compose up -d` Same as the previous, but the app is run in the background (no showing logs)
+-   `docker-compose exec [service_name] [command]` to execute a custom command inside on of the existing services: `postgresql_db`(database), `web-server`(django app), `ui`(react app)
 
 Example: if you want to run migrations for the django app: `docker-compose exec web-server python manage.py migrate` (`sh` as command instead if you want to run a shell)
 
--  `docker-compose stop` to stop your services
--  `docker-compose build` to force the build (for example if you changed the `docker-compose.yml` or one of the `Dockerfiles`)
+-   `docker-compose stop` to stop your services
+-   `docker-compose build` to force the build (for example if you changed the `docker-compose.yml` or one of the `Dockerfiles`)
 
 ### 2.2 Project stack
 
 The project is RESTful. Here are the technologies used:
 
--  Reactjs (v16.13) for the frontend part. Note that we use typescript for better type hinting.
--  Django v3.0 (Python v3.8) for the backend.
--  PostgreSQL (v12.2) for the database.
--  Docker and docker-compose for the application's containerization.
+-   Reactjs (v16.13) for the frontend part. Note that we use typescript for better type hinting.
+-   Django v3.0 (Python v3.8) for the backend.
+-   PostgreSQL (v12.2) for the database.
+-   Docker and docker-compose for the application's containerization.
 
 ### 2.3 Project structure
 
--  `core/` folder contains the backend (django app)
--  `ui/` folder contains the react application
+-   `core/` folder contains the backend (django app)
+-   `ui/` folder contains the react application
 
 ### 2.4 How to add new dependencies ?
 

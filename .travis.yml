@@ -1,0 +1,40 @@
+language: minimal
+
+services:
+  - docker
+
+git:
+  depth: false
+  quiet: true
+
+before_install:
+  - |
+    docker build \
+    -f core/Dockerfile  \
+    --target CI  \
+    -t learn-hub-web-server:test \
+    core  # Building the repo CI test image
+  - docker pull postgres:12
+  - |
+    docker container run -d \
+    --env POSTGRES_USER=${POSTGRES_USER} \
+    --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+    --env POSTGRES_DB=${POSTGRES_DB} \
+    --name postgres_db postgres
+  - |
+    export POSTGRES_HOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' postgres_db)"
+
+script:
+  - mkdir shared/
+  - |
+    docker container run -t \
+    --env POSTGRES_USER=${POSTGRES_USER} \
+    --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+    --env POSTGRES_DB=${POSTGRES_DB} \
+    --env POSTGRES_HOST=${POSTGRES_HOST} \
+    --volume "$PWD/shared:/usr/src/app/shared" \
+    --name web-server learn-hub-web-server:test \
+    pytest --cov-report=xml:shared/report.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
