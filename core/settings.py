@@ -76,7 +76,8 @@ DATABASES = {
 ALLOWED_HOSTS = []
 WSGI_APPLICATION = "wsgi.application"
 
-# TODO: Drop all useless apps and middlewares
+AUTH_USER_MODEL = 'accounts.User'
+
 INSTALLED_APPS = [
     # Django Apps
     "django.contrib.admin",
@@ -88,6 +89,8 @@ INSTALLED_APPS = [
     # Third-Party Apps
     "rest_framework",
     "rest_framework.authtoken",
+    # Local Apps
+    "accounts",
 ]
 
 MIDDLEWARE = [
