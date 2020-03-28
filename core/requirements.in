@@ -1,9 +1,3 @@
-asgiref==3.*
-click==7.*
 Django==3.*
 djangorestframework==3.*
-pip-tools==4.*
 psycopg2==2.*
-pytz==2019.*
-six==1.*
-sqlparse==0.*
