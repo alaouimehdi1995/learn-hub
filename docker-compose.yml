@@ -12,8 +12,8 @@ networks:
 
 # TODO: Add env variables to separate test and production environments
 services:
-    postgresql_db:
-        image: postgres:12.2
+    postgres_db:
+        image: postgres:12
         container_name: "learn-hub-web-db"
         environment:
             <<: *db-credentials
@@ -24,13 +24,14 @@ services:
         build:
             context: ./core/
             dockerfile: Dockerfile
+            target: local
         image: learn-hub-web-server
         container_name: "learn-hub-web-server"
         command: ./docker-entrypoint.sh
         restart: always
         user: ${UID}:${GID}
         depends_on:
-            - postgresql_db
+            - postgres_db
         ports:
             - "8000:8000"
         networks:
@@ -39,7 +40,7 @@ services:
             - ./core/:/usr/src/app/
         environment:
             <<: *db-credentials
-            POSTGRES_HOST: 'postgresql_db'
+            POSTGRES_HOST: 'postgres_db'
 
     ui:
         build:
