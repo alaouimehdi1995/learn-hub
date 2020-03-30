@@ -45,7 +45,7 @@ script:
     --env POSTGRES_HOST=${POSTGRES_HOST} \
     --volume "$PWD/coverage:/usr/src/app/coverage" \
     --name web-server learn-hub-web-server:test \
-    pytest --cov-report=xml:shared/report.xml
+    pytest --cov=./
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)  # Codecov coverage
