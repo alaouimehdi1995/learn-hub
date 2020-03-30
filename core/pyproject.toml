@@ -1,0 +1,31 @@
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.py(i|\.sample)?$'
+exclude = '''
+/(
+    \.git
+  | dist
+  | vendor
+  | static
+  | migrations
+  | node_modules
+  | venv3
+)/
+'''
+
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = settings
+python_files = tests.py test_*.py *_test.py
+addopts = --strict --cov=./
+
+[tool.coverage.run]
+data_file = coverage_data
+omit = manage.py,asgi.py,wsgi.py
+source = ./
+
+[tool.coverage.report]
+omit = manage.py,asgi.py,wsgi.py,**/tests/*,**/__init__.py,**/migrations/*
+
+[tool.coverage.json]
+output = coverage/report.json
