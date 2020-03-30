@@ -1,0 +1,29 @@
+[tool.black]
+check = true
+diff = true
+fast = true
+line-length = 88
+target-version = ['py38']
+include = '\.py(i|\.sample)?$'
+exclude = '''
+/(
+    \.git
+  | dist
+  | vendor
+  | static
+  | migrations
+  | node_modules
+  | venv3
+)/
+'''
+
+[tool.coverage.run]
+data_file = '.coverage.data'
+omit = ['manage.py','asgi.py','wsgi.py']
+source = ['./']
+
+[tool.coverage.report]
+omit = ['manage.py','asgi.py','wsgi.py','**/tests/*','**/__init__.py','**/migrations/*']
+
+[tool.coverage.json]
+output = 'coverage/report.json'
