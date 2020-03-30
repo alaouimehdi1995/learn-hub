@@ -33,7 +33,7 @@ before_script:
 script:
   - |
     docker container run -t learn-hub-web-server:test \
-    black --fast --diff --check -t py38 ./core/* --include core/**.py
+    black --fast --diff --check .
   - |
     docker container run -t learn-hub-web-server:test \
     flake8 . --count --exit-zero --max-complexity=10
@@ -45,7 +45,7 @@ script:
     --env POSTGRES_HOST=${POSTGRES_HOST} \
     --volume "$PWD/coverage:/usr/src/app/coverage" \
     --name web-server learn-hub-web-server:test \
-    pytest --cov=./
+    pytest
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)  # Codecov coverage
