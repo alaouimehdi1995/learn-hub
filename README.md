@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/alaouimehdi1995/learn-hub.png?branch=master)](https://travis-ci.org/alaouimehdi1995/learn-hub)
 [![codecov](https://codecov.io/gh/alaouimehdi1995/learn-hub/branch/master/graph/badge.svg)](https://codecov.io/gh/alaouimehdi1995/learn-hub)
+[![Maintainability](https://api.codeclimate.com/v1/badges/164c5b1f1bb43ae19f18/maintainability)](https://codeclimate.com/github/alaouimehdi1995/learn-hub/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/alaouimehdi1995/learn-hub/badge.svg)](https://snyk.io/test/github/alaouimehdi1995/learn-hub)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 

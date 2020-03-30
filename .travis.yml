@@ -7,7 +7,7 @@ git:
   depth: false
   quiet: true
 
-before_install:
+install:
   - |
     docker build \
     -f core/Dockerfile  \
@@ -23,18 +23,30 @@ before_install:
     --name postgres_db postgres
   - |
     export POSTGRES_HOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' postgres_db)"
+  - mkdir coverage/  # where the coverage report will be put
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
-  - mkdir shared/
+  - |
+    docker container run -t learn-hub-web-server:test \
+    black --fast --diff --check .
+  - |
+    docker container run -t learn-hub-web-server:test \
+    flake8 . --count --exit-zero --max-complexity=10
   - |
     docker container run -t \
     --env POSTGRES_USER=${POSTGRES_USER} \
     --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
     --env POSTGRES_DB=${POSTGRES_DB} \
     --env POSTGRES_HOST=${POSTGRES_HOST} \
-    --volume "$PWD/shared:/usr/src/app/shared" \
+    --volume "$PWD/coverage:/usr/src/app/coverage" \
     --name web-server learn-hub-web-server:test \
     pytest --cov-report=xml:shared/report.xml
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)  # Codecov coverage
+  - ./cc-test-reporter after-build
