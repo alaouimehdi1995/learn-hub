@@ -18,11 +18,12 @@ exclude = '''
 '''
 
 [tool.coverage.run]
+data_file = 'coverage/.coverage'
 omit = ['manage.py','asgi.py','wsgi.py']
 source = ['./']
 
 [tool.coverage.report]
 omit = ['manage.py','asgi.py','wsgi.py','**/tests/*','**/migrations/*']
 
-[tool.coverage.json]
-output = 'coverage/report.json'
+[tool.coverage.xml]
+output = 'coverage/report.xml'
