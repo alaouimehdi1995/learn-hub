@@ -33,7 +33,7 @@ before_script:
 script:
   - |
     docker container run -t learn-hub-web-server:test \
-    black --fast --diff --check .
+    black --fast --diff --check -t py38 ./core/* --include core/**.py
   - |
     docker container run -t learn-hub-web-server:test \
     flake8 . --count --exit-zero --max-complexity=10
