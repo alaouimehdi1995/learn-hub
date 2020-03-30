@@ -23,7 +23,7 @@ omit = ['manage.py','asgi.py','wsgi.py']
 source = ['./']
 
 [tool.coverage.report]
-omit = ['manage.py','asgi.py','wsgi.py','**/tests/*','**/__init__.py','**/migrations/*']
+omit = ['manage.py','asgi.py','wsgi.py','**/tests/*','**/migrations/*']
 
 [tool.coverage.json]
 output = 'coverage/report.json'
