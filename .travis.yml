@@ -25,12 +25,12 @@ install:
     export POSTGRES_HOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' postgres_db)"
 
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./core/cc-test-reporter
+  - chmod +x ./core/cc-test-reporter
+  - ./core/cc-test-reporter before-build
 
 script:
-  - mkdir coverage/
+  - mkdir -p core/coverage/
   - |
     docker container run -t learn-hub-web-server:test \
     black .
@@ -43,12 +43,17 @@ script:
     --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
     --env POSTGRES_DB=${POSTGRES_DB} \
     --env POSTGRES_HOST=${POSTGRES_HOST} \
-    --volume "$PWD/coverage:/usr/src/app/coverage" \
-    --name web-server learn-hub-web-server:test \
+    --volume "$PWD/core/coverage:/usr/src/app/coverage" \
+    learn-hub-web-server:test \
     pytest
-  - ls -alh
-  - ls -alh coverage
+  - |
+    docker container run -t \
+    --volume "$PWD/core/coverage:/usr/src/app/coverage" \
+    learn-hub-web-server:test \
+    coverage xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - ./cc-test-reporter after-build -d -p coverage -t coverage.py
+  - cat core/coverage/report.xml
+  - cd core
+  - ./cc-test-reporter format-coverage -d --input-type coverage.py coverage/report.xml

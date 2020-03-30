@@ -1,5 +1,7 @@
 # Django secret key file
 .django_secret_key
+# Coverage results
+coverage/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
