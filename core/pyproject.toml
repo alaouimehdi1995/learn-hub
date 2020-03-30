@@ -15,17 +15,17 @@ exclude = '''
 '''
 
 [tool.pytest]
-DJANGO_SETTINGS_MODULE = settings
-python_files = tests.py test_*.py *_test.py
-addopts = --strict --cov=./
+DJANGO_SETTINGS_MODULE = 'settings'
+python_files = ['tests.py','test_*.py','*_test.py']
+addopts = ['--strict', '--cov=./']
 
 [tool.coverage.run]
-data_file = coverage_data
-omit = manage.py,asgi.py,wsgi.py
-source = ./
+data_file = 'coverage_data'
+omit = ['manage.py','asgi.py','wsgi.py']
+source = './'
 
 [tool.coverage.report]
-omit = manage.py,asgi.py,wsgi.py,**/tests/*,**/__init__.py,**/migrations/*
+omit = ['manage.py','asgi.py','wsgi.py','**/tests/*','**/__init__.py','**/migrations/*']
 
 [tool.coverage.json]
-output = coverage/report.json
+output = 'coverage/report.json'
