@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/alaouimehdi1995/learn-hub.png?branch=master)](https://travis-ci.org/alaouimehdi1995/learn-hub)
 [![codecov](https://codecov.io/gh/alaouimehdi1995/learn-hub/branch/master/graph/badge.svg)](https://codecov.io/gh/alaouimehdi1995/learn-hub)
+[![Known Vulnerabilities](https://snyk.io/test/github/alaouimehdi1995/learn-hub/badge.svg?targetFile=ui/package.json)](https://snyk.io/test/github/alaouimehdi1995/learn-hub?targetFile=ui/package.json)
+[![Known Vulnerabilities](https://snyk.io/test/github/alaouimehdi1995/learn-hub/badge.svg?targetFile=core/requirements.txt)](https://snyk.io/test/github/alaouimehdi1995/learn-hub?targetFile=core/requirements.txt)
+[![Known Vulnerabilities](https://snyk.io/test/github/alaouimehdi1995/learn-hub/badge.svg?targetFile=core/dev-requirements.txt)](https://snyk.io/test/github/alaouimehdi1995/learn-hub?targetFile=core/dev-requirements.txt)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 ## How to install ?
 
