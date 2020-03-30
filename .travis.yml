@@ -23,7 +23,6 @@ install:
     --name postgres_db postgres
   - |
     export POSTGRES_HOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' postgres_db)"
-  - mkdir coverage/
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -31,6 +30,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
+  - mkdir coverage/
   - |
     docker container run -t learn-hub-web-server:test \
     black .
@@ -46,7 +46,9 @@ script:
     --volume "$PWD/coverage:/usr/src/app/coverage" \
     --name web-server learn-hub-web-server:test \
     pytest
+  - ls -alh
+  - ls -alh coverage
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - ./cc-test-reporter after-build
+  - ./cc-test-reporter after-build -d -p coverage -t coverage.py

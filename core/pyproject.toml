@@ -18,7 +18,6 @@ exclude = '''
 '''
 
 [tool.coverage.run]
-data_file = '.coverage'
 omit = ['manage.py','asgi.py','wsgi.py']
 source = ['./']
 
