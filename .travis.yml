@@ -57,3 +57,4 @@ after_success:
   - cat core/coverage/report.xml
   - cd core
   - ./cc-test-reporter format-coverage -d --input-type coverage.py coverage/report.xml
+  - ./cc-test-reporter upload-coverage
