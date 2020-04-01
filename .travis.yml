@@ -1,5 +1,5 @@
 language: minimal
-# Test string
+
 services:
   - docker
 
@@ -55,5 +55,5 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - cd core
-  - ./cc-test-reporter format-coverage -d --input-type coverage.py coverage/report.xml
-  - ./cc-test-reporter upload-coverage
+  - cp coverage/report.xml ./coverage.xml
+  - ./cc-test-reporter after-build -d --coverage-input-type coverage.py
