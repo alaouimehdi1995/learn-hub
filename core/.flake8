@@ -1,0 +1,8 @@
+[flake8]
+count = True
+exclude = .git,__pycache__,migrations
+extend-ignore =
+	E501,  # line too long handled by black
+	E266,  # too much '#' in a comment
+max-complexity = 10
+max-line-length = 88

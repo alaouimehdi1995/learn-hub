@@ -7,7 +7,7 @@ git:
   depth: false
   quiet: true
 
-before_install:
+install:
   - |
     docker build \
     -f core/Dockerfile  \
@@ -24,17 +24,36 @@ before_install:
   - |
     export POSTGRES_HOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' postgres_db)"
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./core/cc-test-reporter
+  - chmod +x ./core/cc-test-reporter
+  - ./core/cc-test-reporter before-build
+
 script:
-  - mkdir shared/
+  - mkdir -p core/coverage/
+  - |
+    docker container run -t learn-hub-web-server:test \
+    black .
+  - |
+    docker container run -t learn-hub-web-server:test \
+    flake8 .
   - |
     docker container run -t \
     --env POSTGRES_USER=${POSTGRES_USER} \
     --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
     --env POSTGRES_DB=${POSTGRES_DB} \
     --env POSTGRES_HOST=${POSTGRES_HOST} \
-    --volume "$PWD/shared:/usr/src/app/shared" \
-    --name web-server learn-hub-web-server:test \
-    pytest --cov-report=xml:shared/report.xml
+    --volume "$PWD/core/coverage:/usr/src/app/coverage" \
+    learn-hub-web-server:test \
+    pytest
+  - |
+    docker container run -t \
+    --volume "$PWD/core/coverage:/usr/src/app/coverage" \
+    learn-hub-web-server:test \
+    coverage xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - cd core
+  - cp coverage/report.xml ./coverage.xml
+  - ./cc-test-reporter after-build -d --coverage-input-type coverage.py
